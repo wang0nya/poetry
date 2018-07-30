@@ -1,0 +1,32 @@
+{
+    "icons": [
+    {
+        "src": "img/icon_64.png",
+        "sizes": "64x64",
+        "type": "image/png"
+    },
+    {
+        "src": "img/icon_128.png",
+        "sizes": "128x128",
+        "type": "image/png"
+     },
+     {
+        "src": "img/icon_256.png",
+        "sizes": "256x256",
+        "type": "image/png"
+     },
+     {
+        "src": "img/icon_512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+     }
+
+    ],
+    "start_url": "index.html",
+    "name": "Poetry",
+    "short_name": "Poetry",
+    "display": "standalone",
+    "background_color": "#fff",
+    "theme_color": "#f5593d",
+    "description": "The best of poetry."
+}
