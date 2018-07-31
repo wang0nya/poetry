@@ -16,11 +16,24 @@ function explore () {
     fetch('http://poetrydb.org/author')
         .then(response => response.json())
         .then(authors => {
-            console.log('authors ==>', authors);
             for (let key in authors.authors) {
                 document.getElementById("authors").innerHTML += `<li class="list-group-item">${authors.authors[key]}</li>`;
             }
         });
+    // save clicked value
+    const list = document.getElementById('authors');
+    list.addEventListener("click", set);
+}
+
+// explore more
+function set (e) {
+    if(e.target && e.target.nodeName == "LI") {
+        fetch(`http://poetrydb.org/author/${e.target.innerHTML}`)
+            .then(response => response.json())
+            .then(more => {
+                console.log(more);
+            })
+    }
 }
 
 // network listener
