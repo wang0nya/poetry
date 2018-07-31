@@ -1,7 +1,7 @@
 // register service worker
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/Currency-Converter/sw.js').then(registration => {
+        navigator.serviceWorker.register('/poetry/sw.js').then(registration => {
             // Registration was successful
             console.log('ServiceWorker registration successful with scope: ', registration.scope);
         }, err => {
@@ -11,14 +11,17 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// get all poems from API
-fetch('')
-    .then(response => response.json())
-    .then(poems => {
-        for (let poem in poems) {
-
-        }
-    });
+// get all authors from API
+function explore () {
+    fetch('http://poetrydb.org/author')
+        .then(response => response.json())
+        .then(authors => {
+            console.log('authors ==>', authors)
+            // for (let poem in poems) {
+            //
+            // }
+        });
+}
 
 // network listener
 window.addEventListener('load', () => {
