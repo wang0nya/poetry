@@ -16,10 +16,10 @@ function explore () {
     fetch('http://poetrydb.org/author')
         .then(response => response.json())
         .then(authors => {
-            console.log('authors ==>', authors)
-            // for (let poem in poems) {
-            //
-            // }
+            console.log('authors ==>', authors);
+            for (let key in authors.authors) {
+                document.getElementById("authors").innerHTML += `<li class="list-group-item">${authors.authors[key]}</li>`;
+            }
         });
 }
 
