@@ -34,12 +34,13 @@
       </div>
       <div class="row">
         <div class="section-buttons">
-          <button type="button" class="btn btn-danger btn-round" data-toggle="modal" data-target="#myModal">
+          <button type="button" class="btn btn-danger btn-round" data-toggle="modal" data-target="#searchModal">
             <i class="fa fa-search"></i> Search</button>
-          <button type="button" class="btn btn-danger btn-round" onclick="explore()"><i class="fa fa-compass"></i> Explore</button>
+          <button type="button" class="btn btn-danger btn-round" onclick="explore()" data-toggle="modal" data-target="#exploreModal">
+            <i class="fa fa-compass"></i> Explore</button>
         </div>
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Search Modal -->
+        <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -77,6 +78,28 @@
                 <div class="right-side">
                   <button type="button" class="btn btn-danger btn-link">Search</button>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Explore Modal -->
+        <div class="modal fade" id="exploreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-center" id="exploreModalLabel">Explore</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body text-center">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Cras justo odio</li>
+                  <li class="list-group-item">Dapibus ac facilisis in</li>
+                  <li class="list-group-item">Morbi leo risus</li>
+                  <li class="list-group-item">Porta ac consectetur ac</li>
+                  <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
               </div>
             </div>
           </div>
