@@ -31,11 +31,11 @@ function set (e) {
         fetch(`http://poetrydb.org/author/${e.target.innerHTML}`)
             .then(response => response.json())
             .then(more => {
-                document.getElementById("more").innerHTML += `<h3 class="text-center">${e.target.innerHTML}</h3>`;
+                document.getElementById("more").innerHTML = `<h3 class="text-center">${e.target.innerHTML}</h3>
+                                                             <div class="text-center"><span class="badge badge-pill badge-secondary">${more.length} poems</span></div>`;
                 for (let key in more) {
                     document.getElementById("more").innerHTML += `<li class="list-group-item">${more[key].title}</li>`;
                 }
-                console.log(more);
             })
     }
 }
