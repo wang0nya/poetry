@@ -17,7 +17,7 @@ function explore () {
         .then(response => response.json())
         .then(authors => {
             for (let key in authors.authors) {
-                document.getElementById("authors").innerHTML += `<li class="list-group-item">${authors.authors[key]}</li>`;
+                document.getElementById("authors").innerHTML += `<li class="list-group-item" data-dismiss="modal">${authors.authors[key]}</li>`;
             }
         });
     // save clicked value
@@ -31,6 +31,10 @@ function set (e) {
         fetch(`http://poetrydb.org/author/${e.target.innerHTML}`)
             .then(response => response.json())
             .then(more => {
+                document.getElementById("more").innerHTML += `<h3 class="text-center">${e.target.innerHTML}</h3>`;
+                for (let key in more) {
+                    document.getElementById("more").innerHTML += `<li class="list-group-item">${more[key].title}</li>`;
+                }
                 console.log(more);
             })
     }
