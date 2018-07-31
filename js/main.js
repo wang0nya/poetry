@@ -23,6 +23,8 @@ function explore () {
     // save clicked value
     const list = document.getElementById('authors');
     list.addEventListener("click", set);
+    // clear previous poem
+    document.getElementById("poem").innerHTML = "";
 }
 
 // explore more
@@ -46,7 +48,18 @@ function set (e) {
 // go to selected poem
 function setPoem (e) {
     if (e.target && e.target.nodeName == "LI") {
-        console.log('You selected', e.target.innerHTML + '. Nice choice!')
+        console.log('You selected', e.target.innerHTML + '. Nice choice!');
+        fetch(`http://poetrydb.org/title/${e.target.innerHTML}`)
+            .then(response => response.json())
+            .then(poem => {
+                for (let key in poem) {
+                    document.getElementById("more").innerHTML = `<h3 class="text-center">${e.target.innerHTML}</h3>
+                                                             <div class="text-center"><h6>By ${poem[key].author}</h6></div>`;
+                    for (let line of poem[key].lines) {
+                        document.getElementById("poem").innerHTML += `<p>${line}</p>`;
+                    }
+                }
+            })
     }
 }
 
