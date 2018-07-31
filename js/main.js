@@ -38,6 +38,16 @@ function set (e) {
                 }
             })
     }
+    // save clicked value
+    const list = document.getElementById('more');
+    list.addEventListener("click", setPoem);
+}
+
+// go to selected poem
+function setPoem (e) {
+    if (e.target && e.target.nodeName == "LI") {
+        console.log('You selected', e.target.innerHTML + '. Nice choice!')
+    }
 }
 
 // network listener
