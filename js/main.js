@@ -70,6 +70,11 @@ function set (e) {
     }
 }
 
+// search
+function search() {
+    console.log('search!')
+}
+
 // network listener
 window.addEventListener('load', () => {
     const status = document.getElementById("status");
