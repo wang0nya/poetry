@@ -72,7 +72,9 @@ function set (e) {
 
 // search
 function search() {
-    console.log('search!')
+    let search = document.getElementById("options");
+    search = search.options[search.selectedIndex].text;
+    console.log('search', search)
 }
 
 // network listener
