@@ -44,29 +44,30 @@ function set (e) {
         // save clicked value
         const list = document.getElementById('more');
         list.addEventListener("click", setPoem);
-        // go to selected poem
-        function setPoem (e) {
-            if (e.target && e.target.nodeName == "LI") {
-                const title = e.target.innerHTML;
-                fetch(`http://poetrydb.org/author,title/${author};${title}:abs`)
-                    .then(response => response.json())
-                    .then(poem => {
-                        for (let key in poem) {
-                            document.getElementById("more").innerHTML = `<h3 class="text-center">${e.target.innerHTML}</h3>
+    }
+}
+
+// go to selected poem
+function setPoem (e) {
+    if (e.target && e.target.nodeName == "LI") {
+        const title = e.target.innerHTML;
+        fetch(`http://poetrydb.org/author,title/${author};${title}:abs`)
+            .then(response => response.json())
+            .then(poem => {
+                for (let key in poem) {
+                    document.getElementById("more").innerHTML = `<h3 class="text-center">${e.target.innerHTML}</h3>
                                                              <div class="text-center"><h6>By ${poem[key].author}</h6></div>`;
-                            for (let line of poem[key].lines) {
-                                document.getElementById("poem").innerHTML += `<p>${line}</p>`;
-                                //check for empty paragraphs in poem
-                                $('p').each(function() {
-                                    if ($(this).text() == "") {
-                                        $(this).addClass("break");
-                                    }
-                                });
+                    for (let line of poem[key].lines) {
+                        document.getElementById("poem").innerHTML += `<p>${line}</p>`;
+                        //check for empty paragraphs in poem
+                        $('p').each(function() {
+                            if ($(this).text() == "") {
+                                $(this).addClass("break");
                             }
-                        }
-                    })
-            }
-        }
+                        });
+                    }
+                }
+            })
     }
 }
 
