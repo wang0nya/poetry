@@ -30,7 +30,8 @@ function explore () {
 // explore more
 function set (e) {
     if(e.target && e.target.nodeName == "LI") {
-        fetch(`http://poetrydb.org/author/${e.target.innerHTML}`)
+        const author = e.target.innerHTML;
+        fetch(`http://poetrydb.org/author/${author}`)
             .then(response => response.json())
             .then(more => {
                 document.getElementById("more").innerHTML = `<h3 class="text-center">${e.target.innerHTML}</h3>
@@ -38,28 +39,29 @@ function set (e) {
                 for (let key in more) {
                     document.getElementById("more").innerHTML += `<li class="list-group-item">${more[key].title}</li>`;
                 }
-            })
-    }
-    // save clicked value
-    const list = document.getElementById('more');
-    list.addEventListener("click", setPoem);
-}
+            });
 
-// go to selected poem
-function setPoem (e) {
-    if (e.target && e.target.nodeName == "LI") {
-        console.log('You selected', e.target.innerHTML + '. Nice choice!');
-        fetch(`http://poetrydb.org/title/${e.target.innerHTML}`)
-            .then(response => response.json())
-            .then(poem => {
-                for (let key in poem) {
-                    document.getElementById("more").innerHTML = `<h3 class="text-center">${e.target.innerHTML}</h3>
+        // save clicked value
+        const list = document.getElementById('more');
+        list.addEventListener("click", setPoem);
+        // go to selected poem
+        function setPoem (e) {
+            if (e.target && e.target.nodeName == "LI") {
+                const title = e.target.innerHTML;
+                console.log('You selected', title + ' by ' + author + '. Nice choice!');
+                fetch(`http://poetrydb.org/author,title/${author};${title}`)
+                    .then(response => response.json())
+                    .then(poem => {
+                        for (let key in poem) {
+                            document.getElementById("more").innerHTML = `<h3 class="text-center">${e.target.innerHTML}</h3>
                                                              <div class="text-center"><h6>By ${poem[key].author}</h6></div>`;
-                    for (let line of poem[key].lines) {
-                        document.getElementById("poem").innerHTML += `<p>${line}</p>`;
-                    }
-                }
-            })
+                            for (let line of poem.slice(0, 1)[key].lines) {
+                                document.getElementById("poem").innerHTML += `<p>${line}</p>`;
+                            }
+                        }
+                    })
+            }
+        }
     }
 }
 
