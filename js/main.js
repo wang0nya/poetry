@@ -57,6 +57,13 @@ function set (e) {
                                                              <div class="text-center"><h6>By ${poem[key].author}</h6></div>`;
                             for (let line of poem[key].lines) {
                                 document.getElementById("poem").innerHTML += `<p>${line}</p>`;
+                                //check for empty paragraphs in poem
+                                $('p').each(function() {
+                                    if ($(this).text() == "") {
+                                        console.log('empty found!');
+                                        $(this).addClass("break");
+                                    }
+                                });
                             }
                         }
                     })
