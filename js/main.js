@@ -31,7 +31,7 @@ function explore () {
 function set (e) {
     if(e.target && e.target.nodeName == "LI") {
         const author = e.target.innerHTML;
-        fetch(`http://poetrydb.org/author/${author}`)
+        fetch(`http://poetrydb.org/author/${author}:abs`)
             .then(response => response.json())
             .then(more => {
                 document.getElementById("more").innerHTML = `<h3 class="text-center">${e.target.innerHTML}</h3>
@@ -49,13 +49,13 @@ function set (e) {
             if (e.target && e.target.nodeName == "LI") {
                 const title = e.target.innerHTML;
                 console.log('You selected', title + ' by ' + author + '. Nice choice!');
-                fetch(`http://poetrydb.org/author,title/${author};${title}`)
+                fetch(`http://poetrydb.org/author,title/${author};${title}:abs`)
                     .then(response => response.json())
                     .then(poem => {
                         for (let key in poem) {
                             document.getElementById("more").innerHTML = `<h3 class="text-center">${e.target.innerHTML}</h3>
                                                              <div class="text-center"><h6>By ${poem[key].author}</h6></div>`;
-                            for (let line of poem.slice(0, 1)[key].lines) {
+                            for (let line of poem[key].lines) {
                                 document.getElementById("poem").innerHTML += `<p>${line}</p>`;
                             }
                         }
