@@ -48,7 +48,6 @@ function set (e) {
         function setPoem (e) {
             if (e.target && e.target.nodeName == "LI") {
                 const title = e.target.innerHTML;
-                console.log('You selected', title + ' by ' + author + '. Nice choice!');
                 fetch(`http://poetrydb.org/author,title/${author};${title}:abs`)
                     .then(response => response.json())
                     .then(poem => {
@@ -60,7 +59,6 @@ function set (e) {
                                 //check for empty paragraphs in poem
                                 $('p').each(function() {
                                     if ($(this).text() == "") {
-                                        console.log('empty found!');
                                         $(this).addClass("break");
                                     }
                                 });
