@@ -72,17 +72,46 @@ function set (e) {
 
 // search
 function search() {
-    // let search = document.getElementById("searchForm");
     const search = document.getElementById('search').value;
     fetch(`http://poetrydb.org/title/${search}/author,title`)
         .then(response => response.json())
         .then(results => {
             document.getElementById("more").innerHTML = `<br><h6 class="text-center">You searched for: '${search}'</h6>
                                                              <div class="text-center"><span class="badge badge-pill badge-secondary">${results.length} poems</span></div>`;
+
             for (let key in results) {
-                document.getElementById("more").innerHTML += `<li class="list-group-item">${results[key].title} by ${results[key].author}</li>`;
+                document.getElementById("more").innerHTML += `<li class="list-group-item">${results[key].title}</li>`;
             }
+            // save clicked value
+            const list = document.getElementById('more');
+            list.addEventListener("click", setPoem);
+            // clear previous poem
+            document.getElementById("poem").innerHTML = "";
         });
+}
+
+// go to selected poem
+function setPoem (e) {
+    if (e.target && e.target.nodeName == "LI") {
+        const title = e.target.innerHTML;
+        fetch(`http://poetrydb.org/title/${title}:abs`)
+            .then(response => response.json())
+            .then(poem => {
+                for (let key in poem) {
+                    document.getElementById("more").innerHTML = `<h3 class="text-center">${e.target.innerHTML}</h3>
+                                                             <div class="text-center"><h6>By ${poem[key].author}</h6></div>`;
+                    for (let line of poem.slice(0, 1)[key].lines) {
+                        document.getElementById("poem").innerHTML += `<p>${line}</p>`;
+                        //check for empty paragraphs in poem
+                        $('p').each(function() {
+                            if ($(this).text() == "") {
+                                $(this).addClass("break");
+                            }
+                        });
+                    }
+                }
+            })
+    }
 }
 
 // network listener
