@@ -72,9 +72,17 @@ function set (e) {
 
 // search
 function search() {
-    let search = document.getElementById("options");
-    search = search.options[search.selectedIndex].text;
-    console.log('search', search)
+    // let search = document.getElementById("searchForm");
+    const search = document.getElementById('search').value;
+    fetch(`http://poetrydb.org/title/${search}/author,title`)
+        .then(response => response.json())
+        .then(results => {
+            document.getElementById("more").innerHTML = `<br><h6 class="text-center">You searched for: '${search}'</h6>
+                                                             <div class="text-center"><span class="badge badge-pill badge-secondary">${results.length} poems</span></div>`;
+            for (let key in results) {
+                document.getElementById("more").innerHTML += `<li class="list-group-item">${results[key].title} by ${results[key].author}</li>`;
+            }
+        });
 }
 
 // network listener

@@ -45,24 +45,12 @@
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title text-center" id="exampleModalLabel">Search</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
               </div>
               <div class="modal-body text-center">
                 <form id="searchForm">
-                  <div class="form-group row">
-                    <div class="col-md-12 col-sm-12 col-12">
-                      <select class="custom-select mr-sm-2" id="options" form="searchForm">
-                        <option value="title">title</option>
-                        <option value="author">author</option>
-                        <option value="line">line</option>
-                      </select>
-                    </div>
-                  </div>
                   <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" placeholder="To be or not to be..." aria-describedby="basic-addon1">
+                    <input type="text" class="form-control" placeholder="Poem title" aria-describedby="basic-addon1" id="search">
                   </div>
                 </form>
               </div>
@@ -72,7 +60,7 @@
                 </div>
                 <div class="divider"></div>
                 <div class="right-side">
-                  <button type="button" class="btn btn-danger btn-link" onclick="search()">Search</button>
+                  <button type="button" class="btn btn-danger btn-link" onclick="search()" data-dismiss="modal">Search</button>
                 </div>
               </div>
             </div>
