@@ -1,7 +1,7 @@
 // add an install event listener to the service worker
 self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open('v1').then(cache => cache.addAll([
+        caches.open('v2').then(cache => cache.addAll([
             '/poetry/',
             '/poetry/index.html',
             '/poetry/404.html',
@@ -20,7 +20,6 @@ self.addEventListener('install', event => {
             '/poetry/js/bootstrap.min.js',
             '/poetry/js/bootstrap-switch.min.js',
             '/poetry/js/paper-kit.js',
-            // '', TODO: add poetry api 
             'https://cdn.jsdelivr.net/npm/idb-keyval@3/dist/idb-keyval-iife.min.js'
         ]))
     );
@@ -41,7 +40,7 @@ self.addEventListener('fetch', event => {
                 // and serve second one
                 let responseClone = response.clone();
 
-                caches.open('v1').then(cache => {
+                caches.open('v2').then(cache => {
                     cache.put(event.request, responseClone);
                 });
                 return response;
@@ -53,7 +52,7 @@ self.addEventListener('fetch', event => {
 
 // activate
 self.addEventListener('activate', event => {
-    const cacheWhitelist = ['v1'];
+    const cacheWhitelist = ['v2'];
 
     event.waitUntil(
         caches.keys().then(keyList => Promise.all(keyList.map(key => {
