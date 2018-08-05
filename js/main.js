@@ -13,7 +13,7 @@ if ('serviceWorker' in navigator) {
 
 // get all authors from API
 function explore () {
-    fetch('https://poetrydb.org/author')
+    fetch('https://cors-anywhere.herokuapp.com/poetrydb.org/author')
         .then(response => response.json())
         .then(authors => {
             for (let key in authors.authors) {
@@ -31,7 +31,7 @@ function explore () {
 function set (e) {
     if(e.target && e.target.nodeName == "LI") {
         const author = e.target.innerHTML;
-        fetch(`https://poetrydb.org/author/${author}:abs`)
+        fetch(`https://cors-anywhere.herokuapp.com/poetrydb.org/author/${author}:abs`)
             .then(response => response.json())
             .then(more => {
                 document.getElementById("more").innerHTML = `<h3 class="text-center">${e.target.innerHTML}</h3>
@@ -51,7 +51,7 @@ function set (e) {
 function setPoem (e) {
     if (e.target && e.target.nodeName == "LI") {
         const title = e.target.innerHTML;
-        fetch(`https://poetrydb.org/author,title/${author};${title}:abs`)
+        fetch(`https://cors-anywhere.herokuapp.com/poetrydb.org/author,title/${author};${title}:abs`)
             .then(response => response.json())
             .then(poem => {
                 for (let key in poem) {
@@ -74,7 +74,7 @@ function setPoem (e) {
 // search
 function search() {
     const search = document.getElementById('search').value;
-    fetch(`https://poetrydb.org/title/${search}/author,title`)
+    fetch(`https://cors-anywhere.herokuapp.com/poetrydb.org/title/${search}/author,title`)
         .then(response => response.json())
         .then(results => {
             document.getElementById("more").innerHTML = `<br><h6 class="text-center">You searched for: '${search}'</h6>
@@ -95,7 +95,7 @@ function search() {
 function setPoem (e) {
     if (e.target && e.target.nodeName == "LI") {
         const title = e.target.innerHTML;
-        fetch(`https://poetrydb.org/title/${title}:abs`)
+        fetch(`https://cors-anywhere.herokuapp.com/poetrydb.org/title/${title}:abs`)
             .then(response => response.json())
             .then(poem => {
                 for (let key in poem) {
