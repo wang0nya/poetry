@@ -81,7 +81,11 @@ function search() {
                                                              <div class="text-center"><span class="badge badge-pill badge-secondary">${results.length} poems</span></div>`;
 
             for (let key in results) {
-                document.getElementById("more").innerHTML += `<li class="list-group-item">${results[key].title}</li>`;
+                if (results[key].title === undefined) {
+                    document.getElementById("more").innerHTML = '<h6 class="text-center">Sorry, what you searched for was not found.</h6>'
+                } else {
+                    document.getElementById("more").innerHTML += `<li class="list-group-item">${results[key].title}</li>`;
+                }
             }
             // save clicked value
             const list = document.getElementById('more');
