@@ -11,14 +11,24 @@ if ('serviceWorker' in navigator) {
     });
 }
 
+// explore loader
+function startExploreLoader() {
+    $("#exploreWait").css("display", "block");
+}
+function stopExploreLoader() {
+    $("#exploreWait").css("display", "none");
+}
+
 // get all authors from API
 function explore () {
+    startExploreLoader();
     fetch('https://cors-anywhere.herokuapp.com/poetrydb.org/author')
         .then(response => response.json())
         .then(authors => {
             for (let key in authors.authors) {
                 document.getElementById("authors").innerHTML += `<li class="list-group-item" data-dismiss="modal">${authors.authors[key]}</li>`;
             }
+            stopExploreLoader();
         });
     // save clicked value
     const list = document.getElementById('authors');
