@@ -12,6 +12,14 @@ if ('serviceWorker' in navigator) {
 }
 
 // explore loader
+function check() {
+    $myList = $('#authors');
+    if ( $myList.children().length === 0 ) {
+        startExploreLoader()
+    } else {
+        stopExploreLoader()
+    }
+}
 function startExploreLoader() {
     $("#exploreWait").css("display", "block");
 }
@@ -21,7 +29,8 @@ function stopExploreLoader() {
 
 // get all authors from API
 function explore () {
-    startExploreLoader();
+    // show loader if list is empty
+    check();
     fetch('https://cors-anywhere.herokuapp.com/poetrydb.org/author')
         .then(response => response.json())
         .then(authors => {
