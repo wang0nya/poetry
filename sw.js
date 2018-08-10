@@ -1,7 +1,7 @@
 // add an install event listener to the service worker
 self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open('v2').then(cache => cache.addAll([
+        caches.open('v3').then(cache => cache.addAll([
             '/poetry/',
             '/poetry/index.html',
             '/poetry/404.html',
@@ -40,7 +40,7 @@ self.addEventListener('fetch', event => {
                 // and serve second one
                 let responseClone = response.clone();
 
-                caches.open('v2').then(cache => {
+                caches.open('v3').then(cache => {
                     cache.put(event.request, responseClone);
                 });
                 return response;
@@ -52,7 +52,7 @@ self.addEventListener('fetch', event => {
 
 // activate
 self.addEventListener('activate', event => {
-    const cacheWhitelist = ['v2'];
+    const cacheWhitelist = ['v3'];
 
     event.waitUntil(
         caches.keys().then(keyList => Promise.all(keyList.map(key => {
