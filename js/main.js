@@ -11,26 +11,28 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// explore loader
-function check() {
-    $myList = $('#authors');
-    if ( $myList.children().length === 0 ) {
-        startExploreLoader()
-    } else {
-        stopExploreLoader()
-    }
+// fetch listener
+const oldFetch = fetch;  // must be on the global scope
+fetch = (url, options) => {
+    const promise = oldFetch(url, options);
+    // Do something with the promise
+    startExploreLoader();
+    return promise;
 }
+
 function startExploreLoader() {
-    $("#exploreWait").css("display", "block");
-}
+    iziToast.info({
+        title: 'Working...',
+        // message: 'Awesome poetry coming up...',
+        close: false,
+        overlay: true,
+    });}
 function stopExploreLoader() {
-    $("#exploreWait").css("display", "none");
+    iziToast.destroy();
 }
 
 // get all authors from API
 function explore () {
-    // show loader if list is empty
-    check();
     fetch('https://cors-anywhere.herokuapp.com/poetrydb.org/author')
         .then(response => response.json())
         .then(authors => {
@@ -58,6 +60,7 @@ function set (e) {
                 for (let key in more) {
                     document.getElementById("more").innerHTML += `<li class="list-group-item">${more[key].title}</li>`;
                 }
+                stopExploreLoader();
             });
 
         // save clicked value
@@ -73,6 +76,7 @@ function setPoem (e) {
         fetch(`https://cors-anywhere.herokuapp.com/poetrydb.org/author,title/${author};${title}:abs`)
             .then(response => response.json())
             .then(poem => {
+                stopExploreLoader();
                 for (let key in poem) {
                     document.getElementById("more").innerHTML = `<h3 class="text-center">${e.target.innerHTML}</h3>
                                                              <div class="text-center"><h6>By ${poem[key].author}</h6></div>`;
@@ -111,6 +115,7 @@ function search() {
             list.addEventListener("click", setPoem);
             // clear previous poem
             document.getElementById("poem").innerHTML = "";
+            stopExploreLoader();
         });
 }
 
@@ -121,6 +126,7 @@ function setPoem (e) {
         fetch(`https://cors-anywhere.herokuapp.com/poetrydb.org/title/${title}:abs`)
             .then(response => response.json())
             .then(poem => {
+                stopExploreLoader();
                 for (let key in poem) {
                     document.getElementById("more").innerHTML = `<h3 class="text-center">${e.target.innerHTML}</h3>
                                                              <div class="text-center"><h6>By ${poem[key].author}</h6></div>`;
